@@ -20,6 +20,7 @@
     "crypto": "^1.0.1",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
+    "express-rate-limit": "^7.5.0",
     "helmet": "^8.0.0",
     "ioredis": "^5.6.1",
     "morgan": "^1.10.0",
