@@ -1,7 +1,7 @@
 import { db } from '../config/database.config';
 import { Request, Response } from 'express';
 import { blogSchema } from '../schemas/blog.schema';
-
+import { redis } from '../config/redis.client';
 export const addArticle = async (req: Request, res: Response) => {
     const parse = blogSchema.safeParse(req.body);
     if(!parse.success){
@@ -14,6 +14,7 @@ export const addArticle = async (req: Request, res: Response) => {
         const tagString = tags.map(tag => tag.trim().toLowerCase()).join(',');
         const stmt = db.prepare('INSERT INTO blogs (author, title, content, tags) VALUES (?, ?, ?, ?)');
         stmt.run(author, title, content, tagString);
+        await redis.del('all_articles');
         return res.status(201).json({ message: 'Article added successfully' });        
     } catch (error) {
         console.error('Error adding article:', error);
