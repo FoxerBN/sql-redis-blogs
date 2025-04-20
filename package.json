@@ -14,6 +14,7 @@
   "author": "Richard Tekula",
   "license": "MIT",
   "dependencies": {
+    "axios": "^1.8.4",
     "better-sqlite3": "^11.9.1",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
@@ -24,6 +25,7 @@
     "helmet": "^8.0.0",
     "ioredis": "^5.6.1",
     "morgan": "^1.10.0",
+    "winston": "^3.17.0",
     "zod": "^3.24.3"
   },
   "devDependencies": {
