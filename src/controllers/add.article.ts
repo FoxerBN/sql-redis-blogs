@@ -1,8 +1,8 @@
 import { db } from '../config/database.config';
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { blogSchema } from '../schemas/blog.schema';
 import { redis } from '../config/redis.client';
-export const addArticle = async (req: Request, res: Response) => {
+export const addArticle = async (req: Request, res: Response, next: NextFunction) => {
     const parse = blogSchema.safeParse(req.body);
     if(!parse.success){
         const errorMessages = parse.error.errors.map(e => e.message);
@@ -17,7 +17,6 @@ export const addArticle = async (req: Request, res: Response) => {
         await redis.del('all_articles');
         return res.status(201).json({ message: 'Article added successfully' });        
     } catch (error) {
-        console.error('Error adding article:', error);
-        return res.status(500).json({ message: 'Error adding article' });
+        next(error)
     }
 }

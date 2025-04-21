@@ -11,12 +11,14 @@ import { notFound } from "./middlewares/global/notFound";
 import { errorHandler } from "./middlewares/global/errorHandler";
 import { MessageResponse } from "./interfaces/MessageResponse";
 import { connectDB } from "./config/database.config";
+import { logCleaner } from "./utils/log.cleaner";
 //* Routes
 import articleRouter from "./routes/crud.route";
 import requestLogger from "./middlewares/global/winston.logger";
 
 const app = express();
 connectDB();
+logCleaner();
 app.use(morgan("dev"));
 app.use(requestLogger)
 app.use(helmet());

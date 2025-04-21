@@ -1,7 +1,7 @@
 import { db } from "../config/database.config";
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 
-export const getArticlesByPage = async (req: Request, res: Response) => {
+export const getArticlesByPage = async (req: Request, res: Response,next: NextFunction) => {
   const limit = 5;
   const sort = req.query.sort === "asc" ? "ASC" : "DESC";
   const page = parseInt(req.query.page as string) || 1;
@@ -13,7 +13,6 @@ export const getArticlesByPage = async (req: Request, res: Response) => {
     const result = stmt.all(limit, offset);
     return res.status(200).json(result);
   } catch (error) {
-    console.error("❌ Error fetching paginated articles:", error);
-    return res.status(500).json({ message: "Error fetching articles" });
+    next(error);
   }
 };

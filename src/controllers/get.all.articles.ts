@@ -1,8 +1,8 @@
 import { db } from '../config/database.config';
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { redis } from '../config/redis.client';
 
-export const getAllArticles = async(req: Request,res: Response) => {
+export const getAllArticles = async(req: Request,res: Response,next: NextFunction) => {
     const cacheKey = 'all_articles';
     try {
 
@@ -16,7 +16,6 @@ export const getAllArticles = async(req: Request,res: Response) => {
         await redis.set(cacheKey, JSON.stringify(result), 'EX', 60 * 5);
         return res.status(200).json(result);
     } catch (error) {
-        console.error("Error getting all articles:", error);
-        return res.status(500).json({ message: "Error getting all articles" });
+        next(error);
     }
 }
