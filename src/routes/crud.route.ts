@@ -5,11 +5,13 @@ import { addLimiter } from '../limiters/add.limiter';
 import { getLimiter } from '../limiters/get.limiter';
 import { getArticlesByPage } from '../controllers/pagination.article';
 import { removeArticle } from '../controllers/remove.article';
+import { searchArticle } from '../controllers/search.article';
 const articleRouter = express.Router();
 
 articleRouter.post('/add', addLimiter, addArticle);
 articleRouter.get('/all', getLimiter, getAllArticles);
 articleRouter.get('/articles', getLimiter, getArticlesByPage);
+articleRouter.get('/search', getLimiter, searchArticle);
 articleRouter.delete('/remove/:id', removeArticle);
 
 export default articleRouter;
