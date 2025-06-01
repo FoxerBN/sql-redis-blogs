@@ -1,6 +1,6 @@
 import Database from "better-sqlite3";
 
-const DB_PATH = "./database/foxerbase.sqlite";
+const DB_PATH = "../database/foxerbase.sqlite";
 let db: Database.Database;
 
 const connectDB = () => {

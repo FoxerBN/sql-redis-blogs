@@ -2,7 +2,7 @@ import { createLogger, format, transports } from "winston";
 import path from "path";
 import { levelFilter } from "../utils/winston.levelFilter";
 
-const { combine, timestamp, errors, json, colorize, printf } = format;
+const { combine, timestamp, errors, colorize, printf } = format;
 
 const logFormat = combine(timestamp(), errors({ stack: true }), format.prettyPrint());
 
